@@ -1,0 +1,16 @@
+ #!/bin/bash
+timedatectl set-ntp true
+mkfs.fat -F32 /dev/nvme0n1p1
+mkfs.ext4 -F /dev/nvme0n1p2
+mkfs.ext4 -F /dev/nvme0n1p3
+mount /dev/nvme0n1p2 /mnt
+mkdir -p /mnt/boot/efi
+mkdir /mnt/home
+mkdir /mnt/data
+mount /dev/nvme0n1p1 /mnt/boot/efi
+mount /dev/nvme0n1p3 /mnt/home
+mount /dev/nvme1n1p1 /mnt/data
+sed -i "6i Server = https://mirrors.163.com/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel linux linux-firmware dhcpcd
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
