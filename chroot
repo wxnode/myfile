@@ -1,0 +1,18 @@
+#!/bin/bash
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+sed -i "24i zh_CN.UTF-8 UTF-8" /etc/locale.gen
+sed -i "24i en_US.UTF-8 UTF-8" /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "jayden-pc" > /etc/hostname
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+echo "127.0.0.1 jayden-pc.localdomain jayden-pc" >> /etc/hosts
+pacman -S --noconfirm vim amd-ucode grub efibootmgr
+efibootmgr -b 0000 -B
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+sed -i 's/TIMEOUT=5/TIMEOUT=0/g' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+sed -i '92s/.//' /etc/pacman.conf
+sed -i '93s/.//' /etc/pacman.conf

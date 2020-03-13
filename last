@@ -1,0 +1,22 @@
+#!/bin/bash
+dhcpcd
+sleep 15
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo "# Swap" >> /etc/fstab
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+sed -i '$a[archlinuxcn]' /etc/pacman.conf
+sed -i '$aSigLevel = Optional TrustedOnly' /etc/pacman.conf
+sed -i '$aServer = http://mirrors.163.com/archlinux-cn/$arch' /etc/pacman.conf
+pacman -Syy
+pacman -S --noconfirm archlinuxcn-keyring
+pacman -S --noconfirm git yay
+useradd -m -g users -G wheel jayden
+export EDITOR=vim
+visudo
+echo "Please enter root's password"
+passwd root
+echo "Please enter jayden's password"
+passwd jayden
