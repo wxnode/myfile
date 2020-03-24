@@ -10,7 +10,7 @@ mkdir /mnt/data
 mount /dev/nvme0n1p1 /mnt/boot/efi
 mount /dev/nvme0n1p3 /mnt/home
 mount /dev/nvme1n1p1 /mnt/data
-sed -i "6i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
+sed -i "6i Server = http://uni.mirrors.163.com/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
 #sed -i "6i Server = https://mirrors.163.com/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-firmware dhcpcd
 genfstab -U /mnt >> /mnt/etc/fstab
