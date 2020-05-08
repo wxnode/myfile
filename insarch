@@ -5,7 +5,7 @@ mkfs.ext4 -F /dev/nvme0n1p2
 mkfs.ext4 -F /dev/nvme0n1p3
 mkfs.ext4 -F /dev/nvme0n1p4
 mount /dev/nvme0n1p2 /mnt
-mkdir -p /mnt/boot
+mkdir /mnt/boot
 mkdir /mnt/home
 mkdir /mnt/data
 mount /dev/nvme0n1p1 /mnt/boot
