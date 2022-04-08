@@ -1,17 +1,15 @@
  #!/bin/bash
 timedatectl set-ntp true
-mkfs.fat -F32 /dev/nvme0n1p1
-mkfs.ext4 -F /dev/nvme0n1p2
-mkfs.ext4 -F /dev/nvme0n1p3
-mount /dev/nvme0n1p2 /mnt
+mkfs.fat -F32 /dev/nvme1n1p1
+mkfs.ext4 -F /dev/nvme1n1p2
+mount /dev/nvme1n1p2 /mnt
 mkdir /mnt/boot
 mkdir /mnt/home
-mkdir /mnt/data
+mkdir /mnt/home/data
 mount /dev/nvme0n1p1 /mnt/boot
-mount /dev/nvme0n1p3 /mnt/home
-mount /dev/nvme0n1p4 /mnt/data
-#sed -i "6i Server = https://mirrors.neusoft.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
-sed -i "6i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
+mount /dev/nvme0n1p3 /mnt/home/data
+sed -i "6i Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
+#sed -i "6i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-firmware dhcpcd
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
