@@ -6,8 +6,8 @@ mount /dev/nvme1n1p2 /mnt
 mkdir /mnt/boot
 mkdir /mnt/home
 mkdir /mnt/home/data
-mount /dev/nvme0n1p1 /mnt/boot
-mount /dev/nvme0n1p3 /mnt/home/data
+mount /dev/nvme1n1p1 /mnt/boot
+mount /dev/nvme1n1p3 /mnt/home/data
 sed -i "6i Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
 #sed -i "6i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch" /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-firmware dhcpcd
